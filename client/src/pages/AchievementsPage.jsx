@@ -29,7 +29,7 @@ const [ccData, setCCData] = useState(null);
 
   const fetchAchievements = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/achievements", {
+      const res = await axios.get("https://vaultify-backend-peg2.onrender.com/achievements", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAchievements(res.data);
@@ -40,7 +40,7 @@ const [ccData, setCCData] = useState(null);
 
   const fetchUsernames = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/user/get-usernames", {
+    const res = await axios.get("https://vaultify-backend-peg2.onrender.com/user/get-usernames", {
       headers: { Authorization: `Bearer ${token}` },
     });
     setGithubUsername(res.data.githubUsername || "");
@@ -121,7 +121,7 @@ const [ccData, setCCData] = useState(null);
     }
 
     // Send POST request
-    await axios.post("http://localhost:5000/achievements", payload, {
+    await axios.post("https://vaultify-backend-peg2.onrender.com/achievements", payload, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -137,7 +137,7 @@ const [ccData, setCCData] = useState(null);
 const handleSaveUsernames = async () => {
   try {
     await axios.put(
-      "http://localhost:5000/user/update-usernames",
+      "https://vaultify-backend-peg2.onrender.com/user/update-usernames",
       { githubUsername, leetcodeUsername, codeforcesUsername, codechefUsername},
       { headers: { Authorization: `Bearer ${token}` } }
     );

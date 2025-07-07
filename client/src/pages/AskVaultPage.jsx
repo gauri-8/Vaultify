@@ -24,7 +24,7 @@ const AskVaultPage = () => {
     try {
       const token = localStorage.getItem("vaultifyToken");
 
-      const response = await fetch("http://localhost:5000/api/askvault", {
+      const response = await fetch("https://vaultify-backend-peg2.onrender.com/api/askvault", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

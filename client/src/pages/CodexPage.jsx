@@ -13,7 +13,7 @@ const CodexPage = () => {
 
   const fetchNotes = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/notes", {
+      const res = await axios.get("https://vaultify-backend-peg2.onrender.com/api/notes", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNotes(res.data);
@@ -36,13 +36,13 @@ const CodexPage = () => {
     try {
       if (editingId) {
         // UPDATE
-        await axios.put(`http://localhost:5000/api/notes/${editingId}`, note, {
+        await axios.put(`https://vaultify-backend-peg2.onrender.com/api/notes/${editingId}`, note, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setEditingId(null);
       } else {
         // CREATE
-        await axios.post("http://localhost:5000/api/notes", note, {
+        await axios.post("https://vaultify-backend-peg2.onrender.com/api/notes", note, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
@@ -61,7 +61,7 @@ const CodexPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/notes/${id}`, {
+      await axios.delete(`https://vaultify-backend-peg2.onrender.com/api/notes/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchNotes();

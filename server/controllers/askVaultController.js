@@ -6,7 +6,10 @@ export const askVault = async (req, res) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "HTTP-Referer": "http://localhost:5173/", // ✅ important
+        "X-Title": "Vaultify AskVault"   
+
       },
       body: JSON.stringify({
         model: "mistralai/mistral-7b-instruct:free", // ✅ working July 2025

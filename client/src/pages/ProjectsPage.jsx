@@ -21,7 +21,7 @@ const ProjectsPage = () => {
     try {
       const token = localStorage.getItem('vaultifyToken');
 
-      const res = await axios.get('http://localhost:5000/projects', {
+      const res = await axios.get('https://vaultify-backend-peg2.onrender.com/projects', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProjects(res.data);
@@ -43,11 +43,11 @@ const ProjectsPage = () => {
 
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5000/projects/${editingId}`, newProject, {
+        await axios.put(`https://vaultify-backend-peg2.onrender.com/projects/${editingId}`, newProject, {
           headers: { Authorization: `Bearer ${token}` },
         });
       } else {
-        await axios.post('http://localhost:5000/projects', newProject, {
+        await axios.post('https://vaultify-backend-peg2.onrender.com/projects', newProject, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
@@ -68,7 +68,7 @@ const ProjectsPage = () => {
     const token = localStorage.getItem('vaultifyToken');
 
     try {
-      await axios.delete(`http://localhost:5000/projects/${id}`, {
+      await axios.delete(`https://vaultify-backend-peg2.onrender.com/projects/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchProjects();
