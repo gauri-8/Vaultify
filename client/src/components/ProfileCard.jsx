@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const ProfileCard = ({ name, email, joke }) => {
   return (
-    <div className="space-y-6 mt-10 lg:mt-30 lg:ml-10 w-60 flex flex-col items-center">
+    <div className="space-y-6 mt-10 lg:mt-30 lg:ml-10 lg:w-60 flex flex-col items-center">
       {/* Profile Section */}
       <motion.div
         initial={{ opacity: 0, x: 50 }}

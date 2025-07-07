@@ -83,7 +83,7 @@ const ProjectsPage = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-[#f7c1df] dark:bg-gray-900 text-gray-800 dark:text-white p-6">
+      <div className="min-h-screen bg-gray-900  text-white p-6">
         <h1 className="text-4xl font-bold mb-10 text-center">📁 My Projects</h1>
 
         {/* Filter Buttons */}
@@ -95,7 +95,7 @@ const ProjectsPage = () => {
               className={`px-4 py-2 rounded-full border font-semibold 
                 ${filter === cat
                   ? 'bg-indigo-600 text-white'
-                  : 'bg-white text-gray-800 dark:bg-gray-800 dark:text-white'
+                  : ' bg-gray-800 text-white'
                 } hover:scale-105 transition`}
             >
               {cat}
@@ -104,7 +104,7 @@ const ProjectsPage = () => {
         </div>
 
         {/* Project Form */}
-        <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-xl shadow-[0_0_18px_#4cb3dc5d]  ring-[#4cb3dc5d] backdrop-blur-sm  mb-12">
+        <div className="max-w-2xl mx-auto bg-gray-800 p-6 rounded-xl shadow-[0_0_18px_#4cb3dc5d]  ring-[#4cb3dc5d] backdrop-blur-sm  mb-12">
           <h2 className="text-xl font-bold mb-4">
             {editingId ? 'Edit Project' : 'Add a New Project'}
           </h2>
@@ -116,7 +116,7 @@ const ProjectsPage = () => {
                 value={newProject[field]}
                 onChange={handleInputChange}
                 placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                className="p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                className="p-2 border  rounded bg-gray-700 border-gray-600"
               />
             ))}
             <button
@@ -133,11 +133,11 @@ const ProjectsPage = () => {
           {filteredProjects.map((project) => (
             <div
               key={project._id}
-              className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition"
+              className="bg-gray-800 p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition"
             >
               <h2 className="text-xl font-bold mb-2">{project.title}</h2>
               <p className="text-sm mb-2">{project.description}</p>
-              <p className="text-xs text-gray-600 dark:text-gray-300 mb-4">
+              <p className="text-xs  text-gray-300 mb-4">
                 Tech: {project.techStack}
               </p>
               <a
