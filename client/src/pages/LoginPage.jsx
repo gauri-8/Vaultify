@@ -24,7 +24,7 @@ function LoginPage() {
 
       localStorage.setItem('vaultifyUser', JSON.stringify(res.data.user));
       localStorage.setItem('vaultifyToken', res.data.token); 
-      navigate('/');
+      navigate('/home');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');
     }

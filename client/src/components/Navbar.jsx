@@ -16,7 +16,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between">
         {/* Logo */}
         <div
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/home')}
           className="cursor-pointer hover:scale-105 transition-transform duration-200"
           title="Go to dashboard"
         >
