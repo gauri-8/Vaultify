@@ -17,7 +17,7 @@ const stats = [
 const DevStatsSection = () => {
   return (
     <div className="bg-gray-800
-  p-6  rounded-xl shadow-md mt-30">
+  p-6  rounded-xl shadow-md sm: mt-40">
       <h3 className="text-xl font-semibold text-white mb-4">📊 Developer Stats</h3>
 
       <div className="space-y-4">
