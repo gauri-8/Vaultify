@@ -68,25 +68,37 @@ const HomePage = () => {
 
   return (
     <>
+    <div className="relative min-h-screen bg-gray-900 text-white">
       <Navbar />
-      <div className="min-h-screen bg-gray-900 text-gray-800">
-        <main className="px-4 py-6 md:px-10 md:py-10 space-y-6">
+
+      {/* Floating Background Blobs */}
+<div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+  <div className="absolute w-80 h-80 bg-purple-600 opacity-20 rounded-full blur-3xl animate-blob1 top-[-10%] left-[10%]" />
+  <div className="absolute w-72 h-72 bg-indigo-500 opacity-20 rounded-full blur-3xl animate-blob2 top-[30%] left-[70%]" />
+  <div className="absolute w-60 h-60 bg-pink-500 opacity-20 rounded-full blur-3xl animate-blob3 top-[60%] left-[30%]" />
+</div>
+
+      
+        
+
+        <main className="px-4 py-6 md:px-10 md:py-10 max-w-7xl mx-auto space-y-6">
           {/* Welcome Banner */}
+          
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-gradient-to-br from-[#de4c9c] to-[#f0d1c8] p-6 rounded-xl shadow"
+            className="bg-gradient-to-r from-indigo-400 to-purple-500 p-6 rounded-2xl shadow-xl text-gray-900"
           >
-            <h2 className="text-2xl font-bold text-gray-800">
+            <h2 className="text-3xl font-bold">
               Welcome back {user?.name}! 👋
             </h2>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm mt-1">
               Let’s build, learn, and grow today 🚀
             </p>
           </motion.div>
 
-          {/* Main Layout */}
+          {/* Layout */}
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Left: Cards + Stats */}
             <div className="flex-1 space-y-6 order-2 lg:order-1">
@@ -95,7 +107,7 @@ const HomePage = () => {
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="grid grid-cols-1 sm:grid-cols-2 sm:mt-30 gap-8"
+                className="grid grid-cols-1 sm:mt-20 sm:grid-cols-2 gap-6"
               >
                 {cards.map((card, idx) => (
                   <motion.div
@@ -104,13 +116,11 @@ const HomePage = () => {
                     onClick={() => navigate(card.link)}
                     whileHover={{ scale: 0.98 }}
                     whileTap={{ scale: 0.95 }}
-                    className="p-6 cursor-pointer h-full rounded-xl shadow-[0_0_18px_#34d39980] ring-1 ring-[#60a6f15d] backdrop-blur-sm bg-gray-800 text-white transition-all duration-300 hover:shadow-2xl"
+                    className="rounded-2xl cursor-pointer p-6 shadow-[0_0_18px_#34d39980] border border-white/10 backdrop-blur-lg bg-white/5 transition-transform duration-300 hover:shadow-lg"
                   >
-                    <h3 className="text-xl font-bold mb-1">{card.title}</h3>
-                    <p className="text-md mt-5 opacity-90">{card.desc}</p>
-                    <p className="text-sm mt-6 text-right hover:text-blue-500 hover:underline">
-                      {card.adDes}
-                    </p>
+                    <h3 className="text-xl font-semibold mb-2">{card.title}</h3>
+                    <p className="text-sm opacity-90 mb-3">{card.desc}</p>
+                    <p className="text-sm text-indigo-300 hover:underline">{card.adDes}</p>
                   </motion.div>
                 ))}
               </motion.div>

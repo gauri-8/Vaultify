@@ -1,4 +1,3 @@
-// components/DevStatsSection.jsx
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -8,37 +7,37 @@ const stats = [
   { label: 'Notes Taken', value: 80 },
   { label: 'AskVault Questions', value: 60 },
 ];
-// dark:bg-gray-800
-
-//dark:text-gray-300
-
-//dark:bg-gray-700
 
 const DevStatsSection = () => {
   return (
-    <div className="bg-gray-800
-  p-6  rounded-xl shadow-md sm: mt-40">
-      <h3 className="text-xl font-semibold text-white mb-4">📊 Developer Stats</h3>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="bg-gray-800/50 backdrop-blur-md border mt-30 border-gray-700 text-white p-6 rounded-xl shadow-lg w-full max-w-3xl mx-auto"
+    >
+      <h3 className="text-xl font-semibold text-indigo-400 mb-4">📊 Developer Stats</h3>
 
       <div className="space-y-4">
         {stats.map((stat, index) => (
           <div key={index}>
-            <div className="flex justify-between mb-1 text-sm text-white ">
+            <div className="flex justify-between mb-1 text-sm text-gray-300">
               <span>{stat.label}</span>
               <span>{stat.value}%</span>
             </div>
-            <div className="w-full bg-gray-200  rounded-full h-3">
+
+            <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${stat.value}%` }}
-                transition={{ duration: 1, delay: index * 0.3 }}
-                className="bg-indigo-500 h-3 rounded-full"
+                transition={{ duration: 1, delay: index * 0.2 }}
+                className="bg-gradient-to-r from-indigo-400 to-purple-500 h-3 rounded-full shadow-inner"
               />
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
