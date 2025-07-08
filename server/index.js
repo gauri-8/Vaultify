@@ -16,7 +16,13 @@ const PORT = process.env.PORT || 5050;
 
 
 // Middleware
-app.use(cors());
+// With this:
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://vaultify-frontend.onrender.com'], // include both local + deployed frontend
+  credentials: true,
+}));
+
+app.options('*', cors()); // Enable preflight across all routes
 app.use(express.json());
 
 // Health Check Route
