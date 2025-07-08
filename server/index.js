@@ -14,18 +14,25 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5050;
 
+// Global error listeners (helps diagnose Render 502 errors)
+process.on('uncaughtException', (err) => {
+  console.error('❌ UNCAUGHT EXCEPTION:', err.message);
+});
+process.on('unhandledRejection', (reason) => {
+  console.error('❌ UNHANDLED REJECTION:', reason);
+});
 
-// Middleware
-// With this:
+// CORS setup
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://vaultify-frontend.onrender.com'], // include both local + deployed frontend
+  origin: ['http://localhost:5173', 'https://vaultify-frontend.onrender.com'],
   credentials: true,
 }));
+app.options('*', cors()); // Enable preflight
 
-app.options('*', cors()); // Enable preflight across all routes
+// Middleware
 app.use(express.json());
 
-// Health Check Route
+// Health check route
 app.get('/', (req, res) => {
   res.send('🚀 Vaultify Backend is running');
 });
@@ -38,17 +45,18 @@ app.use('/user', userRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/askvault', askVaultRoutes);
 
-// DB Connect + Start Server
+// DB + Start server
 const startServer = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
     });
     console.log('✅ MongoDB connected');
 
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
+    // ✅ Use 0.0.0.0 for Render compatibility
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`🚀 Server running on port ${PORT}`);
     });
   } catch (err) {
     console.error('❌ MongoDB connection failed:', err.message);

@@ -84,7 +84,7 @@ const ProjectsPage = () => {
     <>
       <Navbar />
       <div className="min-h-screen bg-gray-900 text-white p-6">
-        <h1 className="text-4xl animate-floatfont-bold mb-10 text-center">📁 My Projects</h1>
+        <h1 className="text-4xl animate-float font-bold mb-10 text-center">📁 My Projects</h1>
 
         {/* Filter Buttons */}
         <div className="flex justify-center gap-4 mb-12 flex-wrap">
