@@ -83,7 +83,10 @@ const ProjectsPage = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gray-900 text-white p-6">
+      <div className="relative min-h-screen bg-gray-900 text-white p-6">
+        <div className="absolute w-[500px] h-[500px] bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 opacity-20 rounded-full blur-3xl top-[-100px] left-[-150px] animate-blob1"></div>
+        <div className="absolute w-[400px] h-[400px] bg-gradient-to-br from-pink-500 via-indigo-500 to-purple-500 opacity-20 rounded-full blur-2xl bottom-[-80px] right-[-120px] animate-blob2"></div>
+
         <h1 className="text-4xl animate-float font-bold mb-10 text-center">📁 My Projects</h1>
 
         {/* Filter Buttons */}

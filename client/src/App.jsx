@@ -11,14 +11,15 @@ import AchievementsPage from './pages/AchievementsPage';
 import CodexPage from './pages/CodexPage';
 import AskVaultPage from './pages/AskVaultPage';
 import RegisterPage from './pages/RegisterPage';
-
+import { Toaster } from "react-hot-toast";
 
 
 
 function App() {
   
   return (
-
+    <>
+ <Toaster position="top-right" reverseOrder={false} />
      <Routes>
       <Route path="/" element={<Navigate to="/login" />} />
   <Route path="/login" element={<LoginPage />} />
@@ -31,6 +32,7 @@ function App() {
       <Route path="/askvault" element={<AskVaultPage />} />
       <Route path="/register" element={<RegisterPage />} />
     </Routes>
+    </>
   );
 }
 

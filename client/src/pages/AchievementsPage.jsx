@@ -3,6 +3,7 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { motion } from "framer-motion";
+import { toast } from "react-hot-toast";
 
 const AchievementsPage = () => {
   const [githubUsername, setGithubUsername] = useState("");
@@ -32,6 +33,7 @@ const AchievementsPage = () => {
       });
       setAchievements(res.data);
     } catch (err) {
+      toast.error("Failed to fetch achievements");
       console.error("Error fetching achievements:", err.message);
     }
   };
@@ -46,6 +48,7 @@ const AchievementsPage = () => {
       setCodeForcesUsername(res.data.codeforcesUsername || "");
       setCodeChefUsername(res.data.codechefUsername || "");
     } catch (err) {
+      toast.error("Failed to load usernames");
       console.error("Error fetching usernames:", err.message);
     }
   };
@@ -113,10 +116,12 @@ const AchievementsPage = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
+      toast.success("Achievement added!");
       setShowModal(false);
       setForm({ type: "certification", title: "", platform: "", link: "", description: "", date: "" });
       fetchAchievements();
     } catch (err) {
+      toast.error("Failed to add achievement");
       console.error("Error adding achievement:", err.message);
     }
   };
@@ -128,8 +133,9 @@ const AchievementsPage = () => {
         { githubUsername, leetcodeUsername, codeforcesUsername, codechefUsername },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert("Usernames saved!");
+      toast.success("Usernames saved!");
     } catch (err) {
+      toast.error("Failed to save usernames");
       console.error("Error saving usernames:", err.message);
     }
   };
@@ -145,7 +151,7 @@ const AchievementsPage = () => {
   const getMilestoneEmoji = (desc) => {
     if (desc.toLowerCase().includes("intern")) return "💼";
     if (desc.toLowerCase().includes("github")) return "🌟";
-    if (desc.toLowerCase().includes("100")) return "🔢";
+    if (desc.toLowerCase().includes("100")) return "🔣";
     return "📌";
   };
 
@@ -155,8 +161,22 @@ const AchievementsPage = () => {
 
   return (
     <>
-      <Navbar />
-      <div className="min-h-screen bg-gray-900 text-white px-6 md:px-12 py-10">
+     <Navbar />
+      <div className="relative min-h-screen bg-gray-900 text-white px-6 md:px-12 py-10 overflow-hidden">
+        {/* Dynamic floating background blobs */}
+     
+      
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+  <div className="absolute w-80 h-80 bg-purple-600 opacity-20 rounded-full blur-3xl animate-blob1 top-[-10%] left-[10%]" />
+  <div className="absolute w-72 h-72 bg-indigo-500 opacity-20 rounded-full blur-3xl animate-blob2 top-[30%] left-[70%]" />
+  <div className="absolute w-60 h-60 bg-pink-500 opacity-20 rounded-full blur-3xl animate-blob3 top-[60%] left-[30%]" />
+</div>
+
+       
+
+
+       
+
         <motion.div
           className="text-center mb-10"
           initial={{ opacity: 0, y: -20 }}
@@ -169,7 +189,7 @@ const AchievementsPage = () => {
             onClick={() => setShowModal(true)}
             className="mt-6 px-5 py-2 bg-indigo-600 rounded hover:bg-indigo-700 transition"
           >
-            ➕ Add Achievement
+            ➕ Add Achievement 
           </button>
         </motion.div>
 
