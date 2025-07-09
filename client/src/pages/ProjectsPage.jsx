@@ -101,7 +101,7 @@ const ProjectsPage = () => {
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-4 py-2 rounded-full border font-semibold 
+              className={`px-4 py-2 rounded-full border cursor-pointer font-semibold 
                 ${filter === cat ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-white'} 
                 hover:scale-105 transition`}
             >
@@ -126,7 +126,7 @@ const ProjectsPage = () => {
             ))}
             <button
               onClick={handleCreateOrUpdate}
-              className="bg-indigo-600 text-white font-bold px-4 py-2 rounded hover:bg-indigo-700"
+              className="bg-indigo-600 text-white cursor-pointer font-bold px-4 py-2 rounded hover:bg-indigo-700"
             >
               {editingId ? 'Update Project' : 'Add Project'}
             </button>
@@ -138,7 +138,7 @@ const ProjectsPage = () => {
           {filteredProjects.map((project) => (
             <div
               key={project._id}
-              className="relative bg-white/5 border border-white/10 backdrop-blur-lg p-6 rounded-xl shadow-[0_0_18px_#4cb3dc5d] hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
+              className="relative cursor-pointer bg-white/5 border border-white/10 backdrop-blur-lg p-6 rounded-xl shadow-[0_0_18px_#4cb3dc5d] hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
             >
               {/* Floating Emoji */}
               <div className="absolute top-4 right-4 text-3xl opacity-70 animate-float">
@@ -175,13 +175,13 @@ const ProjectsPage = () => {
               <div className="flex gap-2 mt-4">
                 <button
                   onClick={() => handleEdit(project)}
-                  className="px-3 py-1 bg-yellow-400 text-white rounded hover:bg-yellow-500"
+                  className="px-3 py-1 bg-yellow-400 cursor-pointer text-white rounded hover:bg-yellow-500"
                 >
                   ✏️ Edit
                 </button>
                 <button
                   onClick={() => handleDelete(project._id)}
-                  className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-700"
+                  className="px-3 py-1 bg-red-500 cursor-pointer text-white rounded hover:bg-red-700"
                 >
                   🗑️ Delete
                 </button>
@@ -190,7 +190,7 @@ const ProjectsPage = () => {
           ))}
         </div>
       </div>
-      <Footer />
+    
     </>
   );
 };

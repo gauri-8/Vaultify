@@ -27,7 +27,7 @@ const Navbar = () => {
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-700 focus:outline-none"
+            className="text-gray-700 cursor-pointer focus:outline-none"
           >
             <svg
               className="w-6 h-6"
@@ -60,14 +60,14 @@ const Navbar = () => {
             <button
               key={idx}
               onClick={() => navigate(`/${route}`)}
-              className="text-lg font-semibold text-gray-700 hover:text-indigo-600"
+              className="text-lg font-semibold cursor-pointer text-gray-700 hover:text-indigo-600"
             >
               {route.charAt(0).toUpperCase() + route.slice(1)}
             </button>
           ))}
           <button
             onClick={handleLogout}
-            className="bg-indigo-600 text-white font-bold px-4 py-2 rounded hover:bg-indigo-700 transition"
+            className="bg-indigo-600 cursor-pointer text-white font-bold px-4 py-2 rounded hover:bg-indigo-700 transition"
           >
             Logout
           </button>
@@ -84,7 +84,7 @@ const Navbar = () => {
                 navigate(`/${route}`);
                 setIsOpen(false);
               }}
-              className="text-lg font-semibold text-gray-700 hover:text-indigo-600 text-left"
+              className="text-lg font-semibold cursor-pointer text-gray-700 hover:text-indigo-600 text-left"
             >
               {route.charAt(0).toUpperCase() + route.slice(1)}
             </button>
@@ -94,7 +94,7 @@ const Navbar = () => {
               handleLogout();
               setIsOpen(false);
             }}
-            className="bg-indigo-600 text-white font-bold px-4 py-2 rounded hover:bg-indigo-700 transition text-left"
+            className="bg-indigo-600 cursor-pointer text-white font-bold px-4 py-2 rounded hover:bg-indigo-700 transition text-left"
           >
             Logout
           </button>

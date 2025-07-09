@@ -178,7 +178,7 @@ const AchievementsPage = () => {
        
 
         <motion.div
-          className="text-center mb-10"
+          className="text-center cursor-pointer mb-10"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -187,7 +187,7 @@ const AchievementsPage = () => {
           <p className="text-gray-400">A timeline of your developer growth journey</p>
           <button
             onClick={() => setShowModal(true)}
-            className="mt-6 px-5 py-2 bg-indigo-600 rounded hover:bg-indigo-700 transition"
+            className="mt-6 px-5 py-2 cursor-pointer bg-indigo-600 rounded hover:bg-indigo-700 transition"
           >
             ➕ Add Achievement 
           </button>
@@ -205,7 +205,7 @@ const AchievementsPage = () => {
               certifications.map((cert) => (
                 <div
                   key={cert._id}
-                  className="bg-gray-800 p-5 rounded-md shadow-lg hover:shadow-[0_0_15px_#6366f1] hover:scale-105 transition-all duration-300"
+                  className="bg-gray-800 p-5 cursor-pointer rounded-md shadow-lg hover:shadow-[0_0_15px_#6366f1] hover:scale-105 transition-all duration-300"
                 >
                   <h3 className="text-xl font-bold text-indigo-400 mb-2">{cert.title}</h3>
                   <p><strong>Platform:</strong> {cert.platform}</p>
@@ -228,7 +228,7 @@ const AchievementsPage = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-2xl font-semibold mb-6">🕒 Milestones</h2>
-          <div className="relative border-l-2 border-indigo-600 pl-6">
+          <div className="relative cursor-pointer border-l-2 border-indigo-600 pl-6">
             {milestones.length ? (
               milestones.map((m) => (
                 <div key={m._id} className="mb-6 relative">
@@ -247,7 +247,7 @@ const AchievementsPage = () => {
     {/* Hackathons */}
     <section className="mb-20">
       <h2 className="text-2xl font-semibold mb-6">🏁 Hackathon Highlights</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 cursor-pointer sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {hackathons.length ? (
           hackathons.map((hack) => (
             <div key={hack._id} className="bg-gray-800 p-5 rounded-md shadow-lg hover:shadow-[0_0_15px_#6366f1] hover:scale-105 transition-all duration-300">
@@ -271,7 +271,7 @@ const AchievementsPage = () => {
         <input type="text" placeholder="Codeforces Username" value={codeforcesUsername} onChange={(e) => setCodeForcesUsername(e.target.value)} className="bg-gray-800 p-2 rounded border border-gray-600" />
         <input type="text" placeholder="CodeChef Username" value={codechefUsername} onChange={(e) => setCodeChefUsername(e.target.value)} className="bg-gray-800 p-2 rounded border border-gray-600" />
       </div>
-      <button onClick={handleSaveUsernames} className="mt-6 bg-indigo-600 px-4 py-2 rounded hover:bg-indigo-700 transition">
+      <button onClick={handleSaveUsernames} className="mt-6 cursor-pointer bg-indigo-600 px-4 py-2 rounded hover:bg-indigo-700 transition">
         Save Usernames
       </button>
     </section>
@@ -280,7 +280,7 @@ const AchievementsPage = () => {
     {githubUsername && (
       <section className="mb-20">
         <h2 className="text-2xl font-semibold mb-4">📈 GitHub Stats</h2>
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 cursor-pointer gap-4">
           <img src={`https://github-readme-stats.vercel.app/api?username=${githubUsername}&show_icons=true&theme=tokyonight`} alt="GitHub Stats" className="rounded-md shadow-md" />
           <img src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${githubUsername}&layout=compact&theme=tokyonight`} alt="Top Languages" className="rounded-md shadow-md" />
         </div>
@@ -299,7 +299,7 @@ const AchievementsPage = () => {
     {(codeforcesUsername || codechefUsername) && (
       <section className="mb-20">
         <h2 className="text-2xl font-semibold mb-4">⚔️ Competitive Programming</h2>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 cursor-pointer gap-6">
           {codeforcesUsername && (
             <div className="bg-gray-800 p-4 rounded-md shadow-md">
               <h4 className="text-xl font-semibold mb-2">📉 Codeforces Rating</h4>
@@ -320,7 +320,7 @@ const AchievementsPage = () => {
     {/* Modal */}
     {showModal && (
       <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center z-50">
-        <div className="bg-gray-900 p-6 rounded-lg w-[90%] max-w-lg shadow-lg">
+        <div className="bg-gray-900 p-6  cursor-pointer rounded-lg w-[90%] max-w-lg shadow-lg">
           <h2 className="text-2xl font-semibold mb-4">Add New Achievement</h2>
           <div className="grid gap-3">
             <select name="type" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} className="bg-gray-800 p-2 rounded border border-gray-600">
@@ -330,35 +330,35 @@ const AchievementsPage = () => {
             </select>
             {form.type === 'certification' && (
               <>
-                <input name="title" placeholder="Title" value={form.title} onChange={handleInputChange} className="bg-gray-800 p-2 rounded border border-gray-600" />
-                <input name="platform" placeholder="Platform" value={form.platform} onChange={handleInputChange} className="bg-gray-800 p-2 rounded border border-gray-600" />
-                <input name="date" placeholder="Date" value={form.date} onChange={handleInputChange} className="bg-gray-800 p-2 rounded border border-gray-600" />
-                <input name="link" placeholder="Certificate Link (optional)" value={form.link} onChange={handleInputChange} className="bg-gray-800 p-2 rounded border border-gray-600" />
+                <input name="title" placeholder="Title" value={form.title} onChange={handleInputChange} className="bg-gray-800 cursor-pointer p-2 rounded border border-gray-600" />
+                <input name="platform" placeholder="Platform" value={form.platform} onChange={handleInputChange} className="bg-gray-800 cursor-pointer p-2 rounded border border-gray-600" />
+                <input name="date" placeholder="Date" value={form.date} onChange={handleInputChange} className="bg-gray-800 p-2 rounded cursor-pointer  border border-gray-600" />
+                <input name="link" placeholder="Certificate Link (optional)" value={form.link} onChange={handleInputChange} className="bg-gray-800 p-2 rounded cursor-pointer border border-gray-600" />
               </>
             )}
             {form.type === 'milestone' && (
               <>
-                <input name="date" placeholder="Date" value={form.date} onChange={handleInputChange} className="bg-gray-800 p-2 rounded border border-gray-600" />
-                <textarea name="description" placeholder="Milestone Description" value={form.description} onChange={handleInputChange} className="bg-gray-800 p-2 rounded border border-gray-600" />
+                <input name="date" placeholder="Date" value={form.date} onChange={handleInputChange} className="bg-gray-800 p-2 cursor-pointer rounded border border-gray-600" />
+                <textarea name="description" placeholder="Milestone Description" value={form.description} onChange={handleInputChange} className="bg-gray-800 p-2 rounded border cursor-pointer border-gray-600" />
               </>
             )}
             {form.type === 'hackathon' && (
               <>
-                <input name="title" placeholder="Hackathon Title" value={form.title} onChange={handleInputChange} className="bg-gray-800 p-2 rounded border border-gray-600" />
-                <input name="date" placeholder="Date" value={form.date} onChange={handleInputChange} className="bg-gray-800 p-2 rounded border border-gray-600" />
-                <textarea name="description" placeholder="Highlight or Summary" value={form.description} onChange={handleInputChange} className="bg-gray-800 p-2 rounded border border-gray-600" />
+                <input name="title" placeholder="Hackathon Title" value={form.title} onChange={handleInputChange} className="bg-gray-800 p-2 cursor-pointer rounded border border-gray-600" />
+                <input name="date" placeholder="Date" value={form.date} onChange={handleInputChange} className="bg-gray-800 p-2 rounded cursor-pointer border border-gray-600" />
+                <textarea name="description" placeholder="Highlight or Summary" value={form.description} onChange={handleInputChange} className="bg-gray-800 p-2 cursor-pointer rounded border border-gray-600" />
               </>
             )}
             <div className="flex justify-end gap-3 mt-4">
-              <button onClick={handleAdd} className="bg-indigo-600 px-4 py-2 rounded hover:bg-indigo-700 transition">Save</button>
-              <button onClick={() => setShowModal(false)} className="bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 transition">Cancel</button>
+              <button onClick={handleAdd} className="bg-indigo-600 px-4 py-2 rounded cursor-pointer hover:bg-indigo-700 transition">Save</button>
+              <button onClick={() => setShowModal(false)} className="bg-gray-700 px-4 py-2 cursor-pointer rounded hover:bg-gray-600 transition">Cancel</button>
             </div>
           </div>
         </div>
       </div>
     )}
   </div>
-  <Footer />
+  
 </>
 
 );

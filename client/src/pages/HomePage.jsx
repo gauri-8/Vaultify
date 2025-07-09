@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import ProfileCard from '../components/ProfileCard';
 import DevStatsSection from '../components/DevStatsSection';
-import { useEffect, useState } from 'react';
-
 
 const HomePage = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('vaultifyUser'));
+
+  const [devStats, setDevStats] = useState([]);
+  const [latestAchievement, setLatestAchievement] = useState(null);
 
   const jokes = [
     "Why do programmers prefer dark mode? Because light attracts bugs.",
@@ -22,37 +23,43 @@ const HomePage = () => {
     "What’s a programmer’s favorite hangout place? The Foo Bar.",
     "How many programmers does it take to change a light bulb? None. It’s a hardware problem."
   ];
-
   const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
 
-  const [devStats, setDevStats] = useState([]);
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const token = localStorage.getItem('vaultifyToken');
 
-useEffect(() => {
-  const fetchStats = async () => {
-    try {
-      const token = localStorage.getItem('vaultifyToken');
-      const res = await fetch('https://vaultify-backend-peg2.onrender.com/api/stats', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await res.json();
+        const [projectsRes, notesRes, achievementsRes] = await Promise.all([
+          fetch('https://vaultify-backend-peg2.onrender.com/api/stats/projects/count', {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          fetch('https://vaultify-backend-peg2.onrender.com/api/stats/notes/count', {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          fetch('https://vaultify-backend-peg2.onrender.com/api/stats/achievements/latest', {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+        ]);
 
-      const formatted = [
-        { label: 'Projects Uploaded', value: data.projectsCount, percent: Math.min(data.projectsCount * 10, 100) },
-        { label: 'Achievements Added', value: data.achievementsCount, percent: Math.min(data.achievementsCount * 10, 100) },
-        { label: 'Notes Taken', value: data.notesCount, percent: Math.min(data.notesCount * 10, 100) },
-      ];
+        const projectsData = await projectsRes.json();
+        const notesData = await notesRes.json();
+        const latest = await achievementsRes.json();
 
-      setDevStats(formatted);
-    } catch (err) {
-      console.error('Error fetching dev stats:', err.message);
-    }
-  };
+        const formatted = [
+          { label: 'Projects Uploaded', value: projectsData.count, percent: Math.min(projectsData.count * 10, 100) },
+          { label: 'Notes Taken', value: notesData.count, percent: Math.min(notesData.count * 10, 100) },
+        ];
 
-  fetchStats();
-}, []);
+        setDevStats(formatted);
+        setLatestAchievement(latest);
+      } catch (err) {
+        console.error('Error fetching dev stats:', err.message);
+      }
+    };
 
+    fetchStats();
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -94,6 +101,10 @@ useEffect(() => {
     },
   ];
 
+
+
+ 
+
   return (
     <>
       <div className="relative min-h-screen bg-gray-900 text-white">
@@ -112,11 +123,9 @@ useEffect(() => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-gradient-to-r from-indigo-400 to-purple-500 p-6 rounded-2xl shadow-xl text-gray-900"
+            className="bg-gradient-to-r from-indigo-500/20 to-purple-500/20  p-6 rounded-2xl shadow-xl text-white"
           >
-            <h2 className="text-3xl font-bold">
-              Welcome back {user?.name}! 👋
-            </h2>
+            <h2 className="text-3xl  text-purple-400 font-bold">Welcome back {user?.name}! 👋</h2>
             <p className="text-sm mt-1">Let’s build, learn, and grow today 🚀</p>
           </motion.div>
 
@@ -153,8 +162,13 @@ useEffect(() => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
               >
-                <DevStatsSection stats={devStats} />
-              </motion.div>
+               
+              
+<DevStatsSection stats={devStats} latestAchievement={latestAchievement} />
+</motion.div>
+            
+
+
             </div>
 
             {/* Right: Profile */}
@@ -162,7 +176,7 @@ useEffect(() => {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="w-full lg:w-[300px] order-1 lg:order-2"
+              className="w-full cursor-pointer lg:w-[300px] order-1 lg:order-2"
             >
               <ProfileCard name={user?.name} email={user?.email} joke={randomJoke} />
             </motion.div>

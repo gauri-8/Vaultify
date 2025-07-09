@@ -78,6 +78,7 @@ const CodexPage = () => {
   return (
     <>
       <Navbar />
+      
 
       {/* Background blobs */}
       <div className="absolute inset-0 -z-10 h-full w-full  bg-gray-900  text-white" />
@@ -94,7 +95,7 @@ const CodexPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="addNote my-8 p-6 rounded-xl bg-white/5 backdrop-blur-md border border-indigo-400/20 shadow-lg"
+          className="addNote my-8 p-6 rounded-xl cursor-pointer bg-white/5 backdrop-blur-md border border-indigo-400/20 shadow-lg"
         >
           <h2 className="text-xl md:text-2xl font-bold">{editingId ? "✏️ Edit Note" : "Add a Note"}</h2>
 
@@ -104,7 +105,7 @@ const CodexPage = () => {
             placeholder="Note Title"
             value={note.title}
             onChange={handleChange}
-            className="w-full rounded-md px-5 py-2 mt-3 bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full rounded-md px-5 py-2 mt-3 cursor-pointer bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
 
           <textarea
@@ -117,7 +118,7 @@ const CodexPage = () => {
 
           <button
             onClick={handleSaveNote}
-            className="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 mt-4 text-sm font-bold text-white rounded-md float-right"
+            className="bg-indigo-600 cursor-pointer hover:bg-indigo-700 px-4 py-2 mt-4 text-sm font-bold text-white rounded-md float-right"
           >
             {editingId ? "💾 Update Note" : "➕ Save Note"}
           </button>
@@ -150,7 +151,7 @@ const CodexPage = () => {
                       e.stopPropagation();
                       handleEdit(n);
                     }}
-                    className="bg-indigo-600 hover:bg-indigo-700 p-2 text-white rounded-md"
+                    className="bg-indigo-600 cursor-pointer hover:bg-indigo-700 p-2 text-white rounded-md"
                   >
                     <FaEdit />
                   </button>
@@ -159,7 +160,7 @@ const CodexPage = () => {
                       e.stopPropagation();
                       handleDelete(n._id);
                     }}
-                    className="bg-indigo-600 hover:bg-indigo-700 p-2 text-white rounded-md"
+                    className="bg-indigo-600 cursor-pointer hover:bg-indigo-700 p-2 text-white rounded-md"
                   >
                     <AiFillDelete />
                   </button>
@@ -177,7 +178,7 @@ const CodexPage = () => {
           ))}
         </div>
       </div>
-      <Footer />
+      
     </>
   );
 };

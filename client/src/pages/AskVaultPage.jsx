@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FaMicrophone, FaPaperclip, FaPaperPlane } from 'react-icons/fa';
+import { FaPaperPlane } from 'react-icons/fa';
+import { IoMdSend } from "react-icons/io";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
@@ -59,29 +60,20 @@ const AskVaultPage = () => {
     }
   };
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    console.log('File uploaded:', file);
-  };
-
   return (
     <>
       <Navbar />
 
-      {/* Gradient background blobs */}
-      <div className=" flex flex-col min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative z-10">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute w-[400px] h-[400px] bg-indigo-500 opacity-20 rounded-full blur-3xl top-[-100px] left-[-150px] animate-blob1"></div>
-        <div className="absolute w-[300px] h-[300px] bg-pink-500 opacity-20 rounded-full blur-2xl bottom-[-100px] right-[-120px] animate-blob2"></div>
-      </div>
+      <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative z-10">
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute w-[400px] h-[400px] bg-indigo-500 opacity-20 rounded-full blur-3xl top-[-100px] left-[-150px] animate-blob1"></div>
+          <div className="absolute w-[300px] h-[300px] bg-pink-500 opacity-20 rounded-full blur-2xl bottom-[-100px] right-[-120px] animate-blob2"></div>
+        </div>
 
-      
-        {/* Header */}
         <div className="px-4 py-4 text-2xl md:text-3xl font-bold border-b border-gray-700 bg-gray-800 shadow">
           Ask Vault 💬 – Your AI Buddy
         </div>
 
-        {/* Chat area */}
         <div className="flex-1 px-4 md:px-10 py-4 overflow-y-auto space-y-4">
           {messages.map((msg, idx) => (
             <motion.div
@@ -93,12 +85,10 @@ const AskVaultPage = () => {
                 msg.sender === 'user' ? 'ml-auto flex-row-reverse' : 'mr-auto'
               }`}
             >
-              {/* Avatar */}
               <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-lg">
                 {msg.sender === 'user' ? '🙋🏻‍♀️' : '🤖'}
               </div>
 
-              {/* Bubble */}
               <div
                 className={`px-4 py-3 rounded-2xl shadow text-sm md:text-base whitespace-pre-line max-w-sm md:max-w-md ${
                   msg.sender === 'user'
@@ -112,7 +102,6 @@ const AskVaultPage = () => {
             </motion.div>
           ))}
 
-          {/* Typing */}
           {isTyping && (
             <div className="flex gap-1 text-sm text-gray-400 font-mono ml-4 animate-pulse">
               Vault is typing<span>.</span><span>.</span><span>.</span>
@@ -122,26 +111,8 @@ const AskVaultPage = () => {
           <div ref={chatEndRef} />
         </div>
 
-        {/* Input area */}
         <div className="sticky bottom-0 w-full bg-gray-800 px-4 py-3 border-t border-gray-700">
           <div className="flex flex-col sm:flex-row items-center gap-3 max-w-5xl mx-auto">
-            {/* File Upload */}
-            <input
-              type="file"
-              className="hidden"
-              id="file-upload"
-              onChange={handleFileUpload}
-            />
-            <label htmlFor="file-upload" className="cursor-pointer hover:text-indigo-400">
-              <FaPaperclip className="text-xl" />
-            </label>
-
-            {/* Mic Button */}
-            <button className="text-xl hover:text-indigo-400">
-              <FaMicrophone />
-            </button>
-
-            {/* Text Input */}
             <input
               type="text"
               placeholder="Ask something..."
@@ -151,18 +122,17 @@ const AskVaultPage = () => {
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
             />
 
-            {/* Send Button */}
             <button
               onClick={handleSend}
-              className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+              className="bg-indigo-600 text-white px-4 py-2 rounded cursor-pointer hover:bg-indigo-700 transition"
             >
-              <FaPaperPlane />
+              <IoMdSend />
             </button>
           </div>
         </div>
       </div>
 
-      <Footer />
+      
     </>
   );
 };
