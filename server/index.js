@@ -14,7 +14,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5050;
 
-// Global error listeners (helps diagnose Render 502 errors)
+// Global error listeners
 process.on('uncaughtException', (err) => {
   console.error('❌ UNCAUGHT EXCEPTION:', err.message);
 });
@@ -22,9 +22,13 @@ process.on('unhandledRejection', (reason) => {
   console.error('❌ UNHANDLED REJECTION:', reason);
 });
 
-// CORS setup
+// ✅ Updated CORS setup
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://vaultify-frontend.onrender.com'],
+  origin: [
+    'http://localhost:5173',
+    'https://vaultify-frontend.onrender.com',
+    'https://vaultify-silk.vercel.app'
+  ],
   credentials: true,
 }));
 app.options('*', cors()); // Enable preflight
@@ -32,7 +36,7 @@ app.options('*', cors()); // Enable preflight
 // Middleware
 app.use(express.json());
 
-// Health check route
+// Health check
 app.get('/', (req, res) => {
   res.send('🚀 Vaultify Backend is running');
 });
@@ -45,16 +49,13 @@ app.use('/user', userRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/askvault', askVaultRoutes);
 
-// DB + Start server
+// DB + Server start
 const startServer = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGO_URI); // ✅ Removed deprecated options
     console.log('✅ MongoDB connected');
 
-    // ✅ Use 0.0.0.0 for Render compatibility
+    // ✅ Use 0.0.0.0 for Render
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
