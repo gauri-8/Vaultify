@@ -1,14 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const stats = [
-  { label: 'Coding Hours', value: 70 },
-  { label: 'Projects Completed', value: 50 },
-  { label: 'Notes Taken', value: 80 },
-  { label: 'AskVault Questions', value: 60 },
-];
-
-const DevStatsSection = () => {
+const DevStatsSection = ({ stats }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -23,13 +16,13 @@ const DevStatsSection = () => {
           <div key={index}>
             <div className="flex justify-between mb-1 text-sm text-gray-300">
               <span>{stat.label}</span>
-              <span>{stat.value}%</span>
+              <span>{stat.value}</span>
             </div>
 
             <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
-                animate={{ width: `${stat.value}%` }}
+                animate={{ width: `${stat.percent}%` }}
                 transition={{ duration: 1, delay: index * 0.2 }}
                 className="bg-gradient-to-r from-indigo-400 to-purple-500 h-3 rounded-full shadow-inner"
               />

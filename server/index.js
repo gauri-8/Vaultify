@@ -9,6 +9,7 @@ import projectRoutes from './routes/projectRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import noteRoutes from './routes/noteRoutes.js';
 import askVaultRoutes from './routes/askVaultRoutes.js';
+import devStatsRoutes from './routes/devStatsRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -48,6 +49,8 @@ app.use('/achievements', achievementRoutes);
 app.use('/user', userRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/askvault', askVaultRoutes);
+app.use('/api/stats', devStatsRoutes);
+
 
 // DB + Server start
 const startServer = async () => {

@@ -5,6 +5,8 @@ import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import ProfileCard from '../components/ProfileCard';
 import DevStatsSection from '../components/DevStatsSection';
+import { useEffect, useState } from 'react';
+
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -23,14 +25,40 @@ const HomePage = () => {
 
   const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
 
+  const [devStats, setDevStats] = useState([]);
+
+useEffect(() => {
+  const fetchStats = async () => {
+    try {
+      const token = localStorage.getItem('vaultifyToken');
+      const res = await fetch('https://vaultify-backend-peg2.onrender.com/api/stats', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+
+      const formatted = [
+        { label: 'Projects Uploaded', value: data.projectsCount, percent: Math.min(data.projectsCount * 10, 100) },
+        { label: 'Achievements Added', value: data.achievementsCount, percent: Math.min(data.achievementsCount * 10, 100) },
+        { label: 'Notes Taken', value: data.notesCount, percent: Math.min(data.notesCount * 10, 100) },
+      ];
+
+      setDevStats(formatted);
+    } catch (err) {
+      console.error('Error fetching dev stats:', err.message);
+    }
+  };
+
+  fetchStats();
+}, []);
+
+
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
+      transition: { staggerChildren: 0.2, delayChildren: 0.3 },
     },
   };
 
@@ -68,22 +96,18 @@ const HomePage = () => {
 
   return (
     <>
-    <div className="relative min-h-screen bg-gray-900 text-white">
-      <Navbar />
+      <div className="relative min-h-screen bg-gray-900 text-white">
+        <Navbar />
 
-      {/* Floating Background Blobs */}
-<div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-  <div className="absolute w-80 h-80 bg-purple-600 opacity-20 rounded-full blur-3xl animate-blob1 top-[-10%] left-[10%]" />
-  <div className="absolute w-72 h-72 bg-indigo-500 opacity-20 rounded-full blur-3xl animate-blob2 top-[30%] left-[70%]" />
-  <div className="absolute w-60 h-60 bg-pink-500 opacity-20 rounded-full blur-3xl animate-blob3 top-[60%] left-[30%]" />
-</div>
-
-      
-        
+        {/* Floating Background Blobs */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+          <div className="absolute w-80 h-80 bg-purple-600 opacity-20 rounded-full blur-3xl animate-blob1 top-[-10%] left-[10%]" />
+          <div className="absolute w-72 h-72 bg-indigo-500 opacity-20 rounded-full blur-3xl animate-blob2 top-[30%] left-[70%]" />
+          <div className="absolute w-60 h-60 bg-pink-500 opacity-20 rounded-full blur-3xl animate-blob3 top-[60%] left-[30%]" />
+        </div>
 
         <main className="px-4 py-6 md:px-10 md:py-10 max-w-7xl mx-auto space-y-6">
           {/* Welcome Banner */}
-          
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -93,9 +117,7 @@ const HomePage = () => {
             <h2 className="text-3xl font-bold">
               Welcome back {user?.name}! 👋
             </h2>
-            <p className="text-sm mt-1">
-              Let’s build, learn, and grow today 🚀
-            </p>
+            <p className="text-sm mt-1">Let’s build, learn, and grow today 🚀</p>
           </motion.div>
 
           {/* Layout */}
@@ -131,7 +153,7 @@ const HomePage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
               >
-                <DevStatsSection />
+                <DevStatsSection stats={devStats} />
               </motion.div>
             </div>
 
