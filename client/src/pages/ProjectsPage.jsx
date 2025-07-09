@@ -83,9 +83,15 @@ const ProjectsPage = () => {
   return (
     <>
       <Navbar />
-      <div className="relative min-h-screen bg-gray-900 text-white p-6">
-        <div className="absolute w-[500px] h-[500px] bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 opacity-20 rounded-full blur-3xl top-[-100px] left-[-150px] animate-blob1"></div>
-        <div className="absolute w-[400px] h-[400px] bg-gradient-to-br from-pink-500 via-indigo-500 to-purple-500 opacity-20 rounded-full blur-2xl bottom-[-80px] right-[-120px] animate-blob2"></div>
+       <div className="relative min-h-screen bg-gray-900 text-white px-6 md:px-12 py-10 overflow-hidden">
+        {/* Dynamic floating background blobs */}
+     
+      
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+  <div className="absolute w-80 h-80 bg-purple-600 opacity-20 rounded-full blur-3xl animate-blob1 top-[-10%] left-[10%]" />
+  <div className="absolute w-72 h-72 bg-indigo-500 opacity-20 rounded-full blur-3xl animate-blob2 top-[30%] left-[70%]" />
+  <div className="absolute w-60 h-60 bg-pink-500 opacity-20 rounded-full blur-3xl animate-blob3 top-[60%] left-[30%]" />
+</div>
 
         <h1 className="text-4xl animate-float font-bold mb-10 text-center">📁 My Projects</h1>
 
