@@ -120,16 +120,32 @@ const ProjectsPage = () => {
         <div className="max-w-2xl mx-auto bg-gray-800 p-6 rounded-xl shadow-[0_0_18px_#4cb3dc5d] ring-[#4cb3dc5d] backdrop-blur-sm mb-12">
           <h2 className="text-xl font-bold mb-4">{editingId ? 'Edit Project' : 'Add a New Project'}</h2>
           <div className="grid grid-cols-1 gap-4">
-            {['title', 'description', 'techStack', 'link', 'category'].map((field) => (
-              <input
-                key={field}
-                name={field}
-                value={newProject[field]}
-                onChange={handleInputChange}
-                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                className="p-2 border rounded bg-gray-700 border-gray-600"
-              />
-            ))}
+           {['title', 'description', 'techStack', 'link', 'category'].map((field) =>
+  field === 'category' ? (
+    <select
+      key={field}
+      name={field}
+      value={newProject[field]}
+      onChange={handleInputChange}
+      className="p-2 border rounded bg-gray-700 border-gray-600 text-white"
+    >
+      <option value="">Select Category</option>
+      <option value="Frontend">🎨 Frontend</option>
+      <option value="Full Stack">🧩 Full Stack</option>
+      <option value="Mini">🔧 Mini</option>
+    </select>
+  ) : (
+    <input
+      key={field}
+      name={field}
+      value={newProject[field]}
+      onChange={handleInputChange}
+      placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+      className="p-2 border rounded bg-gray-700 border-gray-600"
+    />
+  )
+)}
+
             <button
               onClick={handleCreateOrUpdate}
               className="bg-indigo-600 text-white cursor-pointer font-bold px-4 py-2 rounded hover:bg-indigo-700"
