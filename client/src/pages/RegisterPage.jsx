@@ -2,15 +2,25 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../assets/vaultify-logo.png';
+import { motion } from 'framer-motion';
+import { toast } from 'react-hot-toast';
 
 function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+const [loading, setLoading] = useState(false);
 
-  const handleRegister = async (e) => {
+
+const handleRegister = async (e) => {
     e.preventDefault();
+
+    if (!name || !email || !password) {
+      return toast.error('Please fill out all fields!');
+    }
+
+    setLoading(true);
 
     try {
       const res = await axios.post('https://vaultify-backend-peg2.onrender.com/api/auth/register', {
@@ -19,47 +29,80 @@ function RegisterPage() {
         password
       });
 
-      alert('Registration successful! Please login.');
+      toast.success('Registration successful! Please login.');
       navigate('/login');
     } catch (err) {
-      alert(err.response?.data?.message || 'Registration failed.');
+      toast.error(err.response?.data?.message || 'Registration failed.');
+    } finally {
+      setLoading(false);
     }
   };
 
+  
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f7b5d9]">
-      <form onSubmit={handleRegister} className="bg-white p-8 rounded-md shadow-md w-100 hover:-translate-y-2 hover:shadow-xl transition-transform duration-300">
-        <div className="flex items-center justify-center mb-6">
-          <img src={logo} alt="Vaultify Logo" className="w-100 h-50 mr-2" />
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
+      {/* Blobs */}
+      <div className="absolute w-80 h-80 bg-indigo-500 opacity-20 rounded-full blur-3xl top-[-100px] left-[-100px] animate-blob1" />
+      <div className="absolute w-60 h-60 bg-pink-400 opacity-20 rounded-full blur-3xl bottom-[-80px] right-[-80px] animate-blob2" />
+
+      {/* Register Card */}
+      <motion.form
+        onSubmit={handleRegister}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="bg-white/10 border border-white/10 backdrop-blur-lg text-white p-8 rounded-2xl shadow-2xl w-full max-w-md z-10"
+      >
+        <div className="flex justify-center mb-6">
+          <img src={logo} alt="Vaultify Logo" className="h-35" />
         </div>
 
-        <h2 className="text-2xl font-semibold text-center mb-6">Sign Up 🚀</h2>
+        <h2 className="text-2xl font-bold text-center mb-4">Sign up to Vaultify 📝</h2>
 
         <input
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full p-3 border rounded mb-4"
+          className="w-full p-3 mb-4 bg-white/10 border border-white/20 rounded-lg placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-3 border rounded mb-4"
+          className="w-full p-3 mb-4 bg-white/10 border border-white/20 rounded-lg placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-3 border rounded mb-6"
+          className="w-full p-3 mb-6 bg-white/10 border border-white/20 rounded-lg placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
-        <button type="submit" className="w-full bg-[#1ababa] text-white p-3 rounded hover:bg-[#74c7c7] transition">
-          Sign Up
+        <button
+          type="submit"
+          disabled={loading}
+          className={`w-full transition py-3 rounded-lg font-medium text-white ${
+            loading ? 'bg-indigo-400 cursor-not-allowed' : 'bg-indigo-600 cursor-pointer hover:bg-indigo-700'
+          }`}
+        >
+          {loading ? 'Signing up...' : 'Sign Up'}
         </button>
-      </form>
+
+       
+
+        <p className="text-sm text-center mt-4">
+          Already have an account?{' '}
+          <span
+            className="text-blue-400 hover:underline cursor-pointer"
+            onClick={() => navigate('/login')}
+          >
+            Login
+          </span>
+        </p>
+      </motion.form>
     </div>
   );
 }

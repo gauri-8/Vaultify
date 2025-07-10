@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { toast } from "react-hot-toast";
 
 const categories = ['All', 'Frontend', 'Full Stack', 'Mini'];
 
@@ -46,13 +48,16 @@ const ProjectsPage = () => {
           newProject,
           { headers: { Authorization: `Bearer ${token}` } }
         );
+        toast.success("Project Edited!");
       } else {
         await axios.post(
           'https://vaultify-backend-peg2.onrender.com/projects',
           newProject,
           { headers: { Authorization: `Bearer ${token}` } }
         );
+        toast.success("Project Added!");
       }
+      
       setNewProject({ title: '', description: '', techStack: '', link: '', category: '' });
       setEditingId(null);
       fetchProjects();
@@ -73,6 +78,7 @@ const ProjectsPage = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchProjects();
+      toast.success("Project Deleted!");
     } catch (err) {
       console.error('Error deleting project:', err.message);
     }
