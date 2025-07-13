@@ -9,8 +9,7 @@ Built with love as my **first full-stack web application**, this project is a pr
 
 ## 📸 Preview
 
-![Vaultify Screenshot](link-to-screenshot-if-any)
-<img width="1885" height="902" alt="image" src="https://github.com/user-attachments/assets/a936503f-1d9b-432d-9191-4df5f7e2034b" />
+![Vaultify Screenshot](https://github.com/user-attachments/assets/a936503f-1d9b-432d-9191-4df5f7e2034b)
 
 
 ---
