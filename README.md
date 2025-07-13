@@ -1,4 +1,4 @@
-# 🚀 Vaultify — Your Developer Vault & Growth Tracker 🧠💻
+# 🚀 Vaultify — Your Developer Vault & Growth Tracker 💻
 
 Vaultify is your personal digital vault to track your developer journey — from projects and achievements to notes and learning milestones.  
 Built with love as my **first full-stack web application**, this project is a practice-based initiative and may contain some bugs or scope for improvement.
